@@ -46,9 +46,6 @@
                     <span class="text-sm font-semibold tracking-wide text-zinc-900">{{ config('app.name') }}</span>
                 </div>
 
-                <!-- Navigation -->
-                @include('layouts.partials.nav')
-
                 <!-- Sidebar footer -->
                 @include('layouts.partials.sidebar')
             </aside>
