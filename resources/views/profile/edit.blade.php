@@ -21,6 +21,6 @@
         >
             @include('profile.partials.update-password-form')
         </x-admin.card>
-        
+
     </div>
 </x-admin-layout>

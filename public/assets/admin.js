@@ -22,4 +22,7 @@ $(function () {
             $('#avatar-dropdown').addClass('hidden');
         }
     });
+
+    // ── SVG Injection for icons ───────────────────────────
+    SVGInject(document.querySelectorAll("img.injectable"));
 });

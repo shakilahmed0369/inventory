@@ -14,14 +14,12 @@
             <div class="flex items-center justify-between">
                 <p class="text-sm font-medium text-zinc-500">Total Revenue</p>
                 <div class="flex size-8 items-center justify-center rounded-md bg-zinc-100">
-                    <svg class="size-4 text-zinc-600" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <line x1="12" x2="12" y1="2" y2="22"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>
-                    </svg>
+                    <img src="{{ asset('assets/icons/revenue.svg') }}" class="size-4 text-zinc-600 injectable" alt="">
                 </div>
             </div>
             <p class="mt-3 text-2xl font-semibold text-zinc-900">$45,231.89</p>
             <p class="mt-1 flex items-center gap-1 text-xs text-emerald-600">
-                <svg class="size-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
+                <img src="{{ asset('assets/icons/trending-up.svg') }}" class="size-3 injectable" alt="">
                 +20.1% from last month
             </p>
         </div>
@@ -31,14 +29,12 @@
             <div class="flex items-center justify-between">
                 <p class="text-sm font-medium text-zinc-500">Active Users</p>
                 <div class="flex size-8 items-center justify-center rounded-md bg-zinc-100">
-                    <svg class="size-4 text-zinc-600" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>
-                    </svg>
+                    <img src="{{ asset('assets/icons/users.svg') }}" class="size-4 text-zinc-600 injectable" alt="">
                 </div>
             </div>
             <p class="mt-3 text-2xl font-semibold text-zinc-900">+2,350</p>
             <p class="mt-1 flex items-center gap-1 text-xs text-emerald-600">
-                <svg class="size-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
+                <img src="{{ asset('assets/icons/trending-up.svg') }}" class="size-3 injectable" alt="">
                 +180.1% from last month
             </p>
         </div>
@@ -48,14 +44,12 @@
             <div class="flex items-center justify-between">
                 <p class="text-sm font-medium text-zinc-500">Sales</p>
                 <div class="flex size-8 items-center justify-center rounded-md bg-zinc-100">
-                    <svg class="size-4 text-zinc-600" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <path d="M3 9h18v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V9Z"/><path d="m3 9 2.45-4.9A2 2 0 0 1 7.24 3h9.52a2 2 0 0 1 1.8 1.1L21 9"/><path d="M12 3v6"/>
-                    </svg>
+                    <img src="{{ asset('assets/icons/orders.svg') }}" class="size-4 text-zinc-600 injectable" alt="">
                 </div>
             </div>
             <p class="mt-3 text-2xl font-semibold text-zinc-900">+12,234</p>
             <p class="mt-1 flex items-center gap-1 text-xs text-emerald-600">
-                <svg class="size-3" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
+                <img src="{{ asset('assets/icons/trending-up.svg') }}" class="size-3 injectable" alt="">
                 +19% from last month
             </p>
         </div>
@@ -65,14 +59,12 @@
             <div class="flex items-center justify-between">
                 <p class="text-sm font-medium text-zinc-500">Active Now</p>
                 <div class="flex size-8 items-center justify-center rounded-md bg-zinc-100">
-                    <svg class="size-4 text-zinc-600" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                        <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>
-                    </svg>
+                    <img src="{{ asset('assets/icons/activity.svg') }}" class="size-4 text-zinc-600 injectable" alt="">
                 </div>
             </div>
             <p class="mt-3 text-2xl font-semibold text-zinc-900">+573</p>
             <p class="mt-1 flex items-center gap-1 text-xs text-red-500">
-                <svg class="size-3 rotate-180" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
+                <img src="{{ asset('assets/icons/trending-up.svg') }}" class="size-3 rotate-180 injectable" alt="">
                 -201 since last hour
             </p>
         </div>
@@ -154,13 +146,13 @@
                     <div class="mt-0.5 flex size-7 shrink-0 items-center justify-center rounded-full
                         {{ $event['icon'] === 'alert' ? 'bg-red-50' : 'bg-zinc-100' }}">
                         @if($event['icon'] === 'user')
-                            <svg class="size-3.5 text-zinc-600" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="5"/><path d="M20 21a8 8 0 1 0-16 0"/></svg>
+                            <img src="{{ asset('assets/icons/profile.svg') }}" class="size-3.5 text-zinc-600 injectable" alt="">
                         @elseif($event['icon'] === 'order')
-                            <svg class="size-3.5 text-zinc-600" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9h18v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V9Z"/><path d="m3 9 2.45-4.9A2 2 0 0 1 7.24 3h9.52a2 2 0 0 1 1.8 1.1L21 9"/><path d="M12 3v6"/></svg>
+                            <img src="{{ asset('assets/icons/orders.svg') }}" class="size-3.5 text-zinc-600 injectable" alt="">
                         @elseif($event['icon'] === 'payment')
-                            <svg class="size-3.5 text-zinc-600" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="14" x="2" y="5" rx="2"/><line x1="2" x2="22" y1="10" y2="10"/></svg>
+                            <img src="{{ asset('assets/icons/credit-card.svg') }}" class="size-3.5 text-zinc-600 injectable" alt="">
                         @else
-                            <svg class="size-3.5 text-red-500" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3Z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg>
+                            <img src="{{ asset('assets/icons/warning.svg') }}" class="size-3.5 text-red-500 injectable" alt="">
                         @endif
                     </div>
                     <div class="min-w-0 flex-1">
@@ -177,15 +169,15 @@
     <!-- Quick actions bar -->
     <div class="mt-4 flex flex-wrap gap-2">
         <button class="inline-flex items-center gap-2 rounded-md bg-zinc-900 px-4 py-2 text-sm font-medium text-white hover:bg-zinc-700 transition-colors">
-            <svg class="size-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+            <img src="{{ asset('assets/icons/arrow-right.svg') }}" class="size-4 injectable" alt="">
             New Report
         </button>
         <button class="inline-flex items-center gap-2 rounded-md border border-zinc-200 bg-white px-4 py-2 text-sm font-medium text-zinc-700 hover:bg-zinc-50 transition-colors">
-            <svg class="size-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" x2="12" y1="15" y2="3"/></svg>
+            <img src="{{ asset('assets/icons/download.svg') }}" class="size-4 injectable" alt="">
             Export CSV
         </button>
         <button class="inline-flex items-center gap-2 rounded-md border border-zinc-200 bg-white px-4 py-2 text-sm font-medium text-zinc-700 hover:bg-zinc-50 transition-colors">
-            <svg class="size-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg>
+            <img src="{{ asset('assets/icons/settings.svg') }}" class="size-4 injectable" alt="">
             Settings
         </button>
     </div>

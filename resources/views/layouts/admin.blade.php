@@ -40,12 +40,8 @@
             >
                 <!-- Brand -->
                 <div class="flex h-16 shrink-0 items-center gap-3 border-b border-zinc-200 px-6">
-                    <div class="flex size-7 items-center justify-center rounded-md bg-zinc-900">
-                        <svg class="size-4 text-white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M11.644 1.59a.75.75 0 0 1 .712 0l9.75 5.25a.75.75 0 0 1 0 1.32l-9.75 5.25a.75.75 0 0 1-.712 0l-9.75-5.25a.75.75 0 0 1 0-1.32l9.75-5.25Z" />
-                            <path d="m3.265 10.602 7.668 4.129a2.25 2.25 0 0 0 2.134 0l7.668-4.13 1.37.739a.75.75 0 0 1 0 1.32l-9.75 5.25a.75.75 0 0 1-.71 0l-9.75-5.25a.75.75 0 0 1 0-1.32l1.37-.738Z" />
-                            <path d="m10.933 19.231-7.668-4.13-1.37.739a.75.75 0 0 0 0 1.32l9.75 5.25c.221.12.489.12.71 0l9.75-5.25a.75.75 0 0 0 0-1.32l-1.37-.738-7.668 4.13a2.25 2.25 0 0 1-2.134 0Z" />
-                        </svg>
+                    <div class="flex size-7 items-center justify-center rounded-md bg-zinc-900 text-white">
+                        <img src="{{ asset('assets/icons/brand-logo.svg') }}" class="size-4 injectable" alt="">
                     </div>
                     <span class="text-sm font-semibold tracking-wide text-zinc-900">{{ config('app.name') }}</span>
                 </div>
@@ -68,9 +64,7 @@
                         id="sidebar-toggle"
                         class="rounded-md p-1.5 text-zinc-500 hover:bg-zinc-100 hover:text-zinc-900 lg:hidden"
                     >
-                        <svg class="size-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <line x1="4" x2="20" y1="6" y2="6"/><line x1="4" x2="20" y1="12" y2="12"/><line x1="4" x2="20" y1="18" y2="18"/>
-                        </svg>
+                        <img src="{{ asset('assets/icons/menu.svg') }}" class="size-5 injectable" alt="">
                     </button>
 
                     <!-- Breadcrumb / page title -->
@@ -89,18 +83,14 @@
                     <div class="flex items-center gap-3">
                         <!-- Search -->
                         <div class="hidden items-center gap-2 rounded-md border border-zinc-200 bg-zinc-50 px-3 py-1.5 text-sm text-zinc-400 sm:flex">
-                            <svg class="size-3.5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/>
-                            </svg>
+                            <img src="{{ asset('assets/icons/search.svg') }}" class="size-3.5 injectable" alt="">
                             <span>Search…</span>
                             <kbd class="ml-4 rounded border border-zinc-200 bg-white px-1.5 py-0.5 text-[10px] font-medium text-zinc-500">⌘K</kbd>
                         </div>
 
                         <!-- Notifications -->
                         <button class="relative rounded-md p-1.5 text-zinc-500 hover:bg-zinc-100 hover:text-zinc-900 transition-colors">
-                            <svg class="size-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                <path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/>
-                            </svg>
+                            <img src="{{ asset('assets/icons/bell.svg') }}" class="size-5 injectable" alt="">
                             <span class="absolute right-1 top-1 size-1.5 rounded-full bg-zinc-900"></span>
                         </button>
 
@@ -119,18 +109,18 @@
                                     <p class="text-xs text-zinc-500 truncate">{{ Auth::user()->email }}</p>
                                 </div>
                                 <a href="{{ route('profile.edit') }}" class="flex items-center gap-2 rounded-md px-3 py-1.5 text-sm text-zinc-700 hover:bg-zinc-100">
-                                    <svg class="size-3.5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="5"/><path d="M20 21a8 8 0 1 0-16 0"/></svg>
+                                    <img src="{{ asset('assets/icons/profile.svg') }}" class="size-3.5 injectable" alt="">
                                     Profile
                                 </a>
                                 <a href="#" class="flex items-center gap-2 rounded-md px-3 py-1.5 text-sm text-zinc-700 hover:bg-zinc-100">
-                                    <svg class="size-3.5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></svg>
+                                    <img src="{{ asset('assets/icons/settings.svg') }}" class="size-3.5 injectable" alt="">
                                     Settings
                                 </a>
                                 <div class="my-1 border-t border-zinc-100"></div>
                                 <form method="POST" action="{{ route('logout') }}">
                                     @csrf
                                     <button type="submit" class="flex w-full items-center gap-2 rounded-md px-3 py-1.5 text-sm text-red-600 hover:bg-red-50">
-                                        <svg class="size-3.5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" x2="9" y1="12" y2="12"/></svg>
+                                        <img src="{{ asset('assets/icons/logout.svg') }}" class="size-3.5 injectable" alt="">
                                         Sign out
                                     </button>
                                 </form>
@@ -149,6 +139,8 @@
 
         <!-- jQuery -->
         <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+
+        <script src="{{ asset('assets/js/svg-inject.min.js') }}"></script>
         <!-- Custom admin JS -->
         <script src="{{ asset('assets/admin.js') }}"></script>
 
