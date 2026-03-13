@@ -27,14 +27,6 @@
         </li>
 
         <li>
-            <a href="#"
-                class="group flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium text-zinc-500 hover:bg-zinc-100 hover:text-zinc-900 transition-colors duration-150">
-                <img src="{{ asset('assets/icons/users.svg') }}" class="size-4 shrink-0 injectable" alt="">
-                Users
-            </a>
-        </li>
-
-        <li>
             <a href="{{ route('reports.index') }}"
                 class="group flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium
                                       {{ request()->routeIs('reports.*') ? 'bg-zinc-900 text-white' : 'text-zinc-500 hover:bg-zinc-100 hover:text-zinc-900' }}
@@ -70,14 +62,6 @@
         </li>
 
         <li>
-            <a href="#"
-                class="group flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium text-zinc-500 hover:bg-zinc-100 hover:text-zinc-900 transition-colors duration-150">
-                <img src="{{ asset('assets/icons/assets.svg') }}" class="size-4 shrink-0 injectable" alt="">
-                Assets
-            </a>
-        </li>
-
-        <li>
             <a href="{{ route('journal-entries.index') }}"
                 class="group flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium
                                       {{ request()->routeIs('journal-entries.*') ? 'bg-zinc-900 text-white' : 'text-zinc-500 hover:bg-zinc-100 hover:text-zinc-900' }}
@@ -99,14 +83,6 @@
                                       transition-colors duration-150">
                 <img src="{{ asset('assets/icons/profile.svg') }}" class="size-4 shrink-0 injectable" alt="">
                 Profile
-            </a>
-        </li>
-
-        <li>
-            <a href="#"
-                class="group flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium text-zinc-500 hover:bg-zinc-100 hover:text-zinc-900 transition-colors duration-150">
-                <img src="{{ asset('assets/icons/settings.svg') }}" class="size-4 shrink-0 injectable" alt="">
-                Settings
             </a>
         </li>
     </ul>
