@@ -7,6 +7,7 @@ use App\Models\Customer;
 use App\Models\Product;
 use App\Models\Sale;
 use App\Models\SaleItem;
+use App\Services\SaleJournalService;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
@@ -77,6 +78,8 @@ class SaleController extends Controller
                 Product::where('id', $item['product_id'])
                     ->decrement('current_stock', $item['quantity']);
             }
+
+            app(SaleJournalService::class)->record($sale);
         });
 
         notyf()->success('Sale recorded successfully.');
