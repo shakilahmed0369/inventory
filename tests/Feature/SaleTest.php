@@ -13,6 +13,67 @@ beforeEach(function () {
     $this->seed(AccountSeeder::class);
 });
 
+// ── Show ──────────────────────────────────────────────────────────────────────
+
+it('shows the sale detail page', function () {
+    $sale = Sale::factory()->create();
+
+    $this->get(route('sales.show', $sale))
+        ->assertSuccessful()
+        ->assertSee("Sale #{$sale->id}");
+});
+
+it('redirects guests away from sale detail', function () {
+    $sale = Sale::factory()->create();
+
+    auth()->logout();
+    $this->get(route('sales.show', $sale))->assertRedirect(route('login'));
+});
+
+it('shows sale items on the detail page', function () {
+    $product = Product::factory()->create(['sell_price' => 250.00, 'current_stock' => 10]);
+
+    $this->post(route('sales.store'), [
+        'sale_date' => '2024-06-01',
+        'discount' => 0,
+        'vat_rate' => 0,
+        'paid_amount' => 500,
+        'items' => [
+            ['product_id' => $product->id, 'quantity' => 2, 'unit_price' => 250],
+        ],
+    ]);
+
+    $sale = Sale::first();
+
+    $this->get(route('sales.show', $sale))
+        ->assertSuccessful()
+        ->assertSee($product->name)
+        ->assertSee('500.00')
+        ->assertSee('Paid');
+});
+
+it('shows journal entries on the sale detail page', function () {
+    $product = Product::factory()->create(['sell_price' => 100.00, 'current_stock' => 5]);
+
+    $this->post(route('sales.store'), [
+        'sale_date' => '2024-06-01',
+        'discount' => 0,
+        'vat_rate' => 0,
+        'paid_amount' => 100,
+        'items' => [
+            ['product_id' => $product->id, 'quantity' => 1, 'unit_price' => 100],
+        ],
+    ]);
+
+    $sale = Sale::first();
+
+    $this->get(route('sales.show', $sale))
+        ->assertSuccessful()
+        ->assertSee('Journal Entries')
+        ->assertSee('Revenue')
+        ->assertSee('COGS');
+});
+
 // ── Index ─────────────────────────────────────────────────────────────────────
 
 it('shows the sales index page', function () {

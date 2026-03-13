@@ -29,7 +29,7 @@
                     @if ($reference)
                         @php $shortType = class_basename($journalEntry->reference_type); @endphp
                         @if ($shortType === 'Sale')
-                            <a href="{{ route('sales.index') }}"
+                            <a href="{{ route('sales.show', $reference) }}"
                                class="font-medium text-zinc-900 underline decoration-zinc-300 hover:decoration-zinc-600">
                                 Sale #{{ $reference->id }}
                             </a>

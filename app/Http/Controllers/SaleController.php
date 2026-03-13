@@ -25,6 +25,13 @@ class SaleController extends Controller
         return view('sales.index', compact('sales'));
     }
 
+    public function show(Sale $sale): View
+    {
+        $sale->loadMissing(['customer', 'items.product', 'journalEntries']);
+
+        return view('sales.show', compact('sale'));
+    }
+
     public function create(): View
     {
         $customers = Customer::query()->orderBy('name')->get(['id', 'name']);

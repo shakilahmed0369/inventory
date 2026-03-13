@@ -35,6 +35,7 @@
                         <th class="hidden px-5 py-3 text-right text-xs font-semibold uppercase tracking-wider text-zinc-500 md:table-cell">Paid</th>
                         <th class="hidden px-5 py-3 text-right text-xs font-semibold uppercase tracking-wider text-zinc-500 md:table-cell">Due</th>
                         <th class="px-5 py-3 text-center text-xs font-semibold uppercase tracking-wider text-zinc-500">Status</th>
+                        <th class="px-5 py-3 text-right text-xs font-semibold uppercase tracking-wider text-zinc-500">Actions</th>
                     </tr>
                 </thead>
                 <tbody class="divide-y divide-zinc-100">
@@ -77,10 +78,17 @@
                                     <span class="inline-flex items-center rounded-full bg-red-50 px-2.5 py-0.5 text-xs font-medium text-red-700">Unpaid</span>
                                 @endif
                             </td>
+                            <td class="px-5 py-3 text-right">
+                                <a href="{{ route('sales.show', $sale) }}"
+                                   class="inline-flex items-center gap-1.5 rounded-md border border-zinc-200 px-3 py-1.5 text-xs font-medium text-zinc-700 hover:bg-zinc-50 transition-colors">
+                                    <img src="{{ asset('assets/icons/circle-info.svg') }}" class="size-3.5 injectable" alt="">
+                                    View
+                                </a>
+                            </td>
                         </tr>
                     @empty
                         <tr>
-                            <td colspan="10" class="px-5 py-12 text-center text-sm text-zinc-400">
+                            <td colspan="11" class="px-5 py-12 text-center text-sm text-zinc-400">
                                 <img src="{{ asset('assets/icons/orders.svg') }}" class="mx-auto mb-3 size-10 text-zinc-300 injectable" alt="">
                                 No sales recorded yet.
                                 <a href="{{ route('sales.create') }}" class="font-medium text-zinc-900 underline">Record the first sale.</a>

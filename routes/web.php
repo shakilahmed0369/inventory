@@ -18,7 +18,7 @@ Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['au
 Route::middleware('auth')->group(function () {
     Route::resource('customers', CustomerController::class)->except(['show']);
     Route::resource('products', ProductController::class)->except(['show']);
-    Route::resource('sales', SaleController::class)->only(['index', 'create', 'store']);
+    Route::resource('sales', SaleController::class)->only(['index', 'create', 'store', 'show']);
     Route::get('/reports', [ReportController::class, 'index'])->name('reports.index');
     Route::resource('journal-entries', JournalEntryController::class)->only(['index', 'show']);
 
