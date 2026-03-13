@@ -17,12 +17,12 @@
         </li>
 
         <li>
-            <a href="#"
-                class="group flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium text-zinc-500 hover:bg-zinc-100 hover:text-zinc-900 transition-colors duration-150">
+            <a href="{{ route('sales.index') }}"
+                class="group flex items-center gap-3 rounded-md px-3 py-2 text-sm font-medium
+                                      {{ request()->routeIs('sales.*') ? 'bg-zinc-900 text-white' : 'text-zinc-500 hover:bg-zinc-100 hover:text-zinc-900' }}
+                                      transition-colors duration-150">
                 <img src="{{ asset('assets/icons/orders.svg') }}" class="size-4 shrink-0 injectable" alt="">
-                Orders
-                <span
-                    class="ml-auto flex size-5 items-center justify-center rounded-full bg-zinc-100 text-[10px] font-medium text-zinc-600">12</span>
+                Sales
             </a>
         </li>
 

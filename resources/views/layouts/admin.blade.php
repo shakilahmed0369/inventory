@@ -141,5 +141,7 @@
         <!-- Custom admin JS -->
         <script src="{{ asset('assets/admin.js') }}"></script>
 
+        @stack('scripts')
+
     </body>
 </html>
