@@ -50,7 +50,7 @@ class SaleController extends Controller
             $vatRate = (float) ($data['vat_rate'] ?? 0);
             $vatAmount = ($grossAmount - $discount) * $vatRate / 100;
             $netPayable = $grossAmount - $discount + $vatAmount;
-            $paidAmount = (float) ($data['paid_amount'] ?? 0);
+            $paidAmount = min((float) ($data['paid_amount'] ?? 0), $netPayable);
             $dueAmount = max(0, $netPayable - $paidAmount);
 
             $sale = Sale::create([
