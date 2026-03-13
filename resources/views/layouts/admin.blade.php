@@ -78,19 +78,6 @@
 
                     <!-- Right-side actions -->
                     <div class="flex items-center gap-3">
-                        <!-- Search -->
-                        <div class="hidden items-center gap-2 rounded-md border border-zinc-200 bg-zinc-50 px-3 py-1.5 text-sm text-zinc-400 sm:flex">
-                            <img src="{{ asset('assets/icons/search.svg') }}" class="size-3.5 injectable" alt="">
-                            <span>Search…</span>
-                            <kbd class="ml-4 rounded border border-zinc-200 bg-white px-1.5 py-0.5 text-[10px] font-medium text-zinc-500">⌘K</kbd>
-                        </div>
-
-                        <!-- Notifications -->
-                        <button class="relative rounded-md p-1.5 text-zinc-500 hover:bg-zinc-100 hover:text-zinc-900 transition-colors">
-                            <img src="{{ asset('assets/icons/bell.svg') }}" class="size-5 injectable" alt="">
-                            <span class="absolute right-1 top-1 size-1.5 rounded-full bg-zinc-900"></span>
-                        </button>
-
                         <!-- Avatar dropdown -->
                         <div class="relative">
                             <button id="avatar-btn" class="flex size-8 items-center justify-center rounded-full bg-zinc-900 text-xs font-semibold uppercase text-white">
@@ -109,10 +96,7 @@
                                     <img src="{{ asset('assets/icons/profile.svg') }}" class="size-3.5 injectable" alt="">
                                     Profile
                                 </a>
-                                <a href="#" class="flex items-center gap-2 rounded-md px-3 py-1.5 text-sm text-zinc-700 hover:bg-zinc-100">
-                                    <img src="{{ asset('assets/icons/settings.svg') }}" class="size-3.5 injectable" alt="">
-                                    Settings
-                                </a>
+                               
                                 <div class="my-1 border-t border-zinc-100"></div>
                                 <form method="POST" action="{{ route('logout') }}">
                                     @csrf

@@ -8,50 +8,97 @@
         <span class="font-medium text-zinc-900">#{{ $sale->id }}</span>
     </x-slot>
 
-    {{-- Sale header card --}}
-    <x-admin.card title="Sale Details">
-        <dl class="grid grid-cols-1 gap-x-8 gap-y-4 sm:grid-cols-2 lg:grid-cols-4">
-            <div>
-                <dt class="text-xs font-medium uppercase tracking-wider text-zinc-500">Sale #</dt>
-                <dd class="mt-1 font-mono text-sm font-medium text-zinc-900">{{ $sale->id }}</dd>
-            </div>
-            <div>
-                <dt class="text-xs font-medium uppercase tracking-wider text-zinc-500">Date</dt>
-                <dd class="mt-1 text-sm font-medium text-zinc-900">{{ $sale->sale_date->format('M d, Y') }}</dd>
-            </div>
-            <div>
-                <dt class="text-xs font-medium uppercase tracking-wider text-zinc-500">Customer</dt>
-                <dd class="mt-1 text-sm text-zinc-900">
-                    @if ($sale->customer)
-                        <a href="{{ route('customers.edit', $sale->customer) }}"
-                           class="font-medium text-zinc-900 underline decoration-zinc-300 hover:decoration-zinc-600">
-                            {{ $sale->customer->name }}
-                        </a>
-                    @else
-                        <span class="text-zinc-400">Walk-in</span>
-                    @endif
-                </dd>
-            </div>
-            <div>
-                <dt class="text-xs font-medium uppercase tracking-wider text-zinc-500">Status</dt>
-                <dd class="mt-1">
-                    @if ($sale->status === 'paid')
-                        <span class="inline-flex items-center rounded-full bg-emerald-50 px-2.5 py-0.5 text-xs font-medium text-emerald-700">Paid</span>
-                    @elseif ($sale->status === 'partial')
-                        <span class="inline-flex items-center rounded-full bg-amber-50 px-2.5 py-0.5 text-xs font-medium text-amber-700">Partial</span>
-                    @else
-                        <span class="inline-flex items-center rounded-full bg-red-50 px-2.5 py-0.5 text-xs font-medium text-red-700">Unpaid</span>
-                    @endif
-                </dd>
-            </div>
-            @if ($sale->notes)
-                <div class="sm:col-span-2 lg:col-span-4">
-                    <dt class="text-xs font-medium uppercase tracking-wider text-zinc-500">Notes</dt>
-                    <dd class="mt-1 text-sm text-zinc-700">{{ $sale->notes }}</dd>
+    {{-- Top row: Sale Details + Customer Info --}}
+    <div class="grid grid-cols-1 gap-6 lg:grid-cols-2">
+
+        {{-- Sale details card --}}
+        <x-admin.card title="Sale Details">
+            <dl class="grid grid-cols-1 gap-x-8 gap-y-4 sm:grid-cols-2">
+                <div>
+                    <dt class="text-xs font-medium uppercase tracking-wider text-zinc-500">Sale #</dt>
+                    <dd class="mt-1 font-mono text-sm font-medium text-zinc-900">{{ $sale->id }}</dd>
+                </div>
+                <div>
+                    <dt class="text-xs font-medium uppercase tracking-wider text-zinc-500">Date</dt>
+                    <dd class="mt-1 text-sm font-medium text-zinc-900">{{ $sale->sale_date->format('M d, Y') }}</dd>
+                </div>
+                <div>
+                    <dt class="text-xs font-medium uppercase tracking-wider text-zinc-500">Status</dt>
+                    <dd class="mt-1">
+                        @if ($sale->status === 'paid')
+                            <span class="inline-flex items-center rounded-full bg-emerald-50 px-2.5 py-0.5 text-xs font-medium text-emerald-700">Paid</span>
+                        @elseif ($sale->status === 'partial')
+                            <span class="inline-flex items-center rounded-full bg-amber-50 px-2.5 py-0.5 text-xs font-medium text-amber-700">Partial</span>
+                        @else
+                            <span class="inline-flex items-center rounded-full bg-red-50 px-2.5 py-0.5 text-xs font-medium text-red-700">Unpaid</span>
+                        @endif
+                    </dd>
+                </div>
+                <div>
+                    <dt class="text-xs font-medium uppercase tracking-wider text-zinc-500">Items</dt>
+                    <dd class="mt-1 text-sm font-medium text-zinc-900">{{ $sale->items->count() }}</dd>
+                </div>
+                @if ($sale->notes)
+                    <div class="sm:col-span-2">
+                        <dt class="text-xs font-medium uppercase tracking-wider text-zinc-500">Notes</dt>
+                        <dd class="mt-1 text-sm text-zinc-700">{{ $sale->notes }}</dd>
+                    </div>
+                @endif
+            </dl>
+        </x-admin.card>
+
+        {{-- Customer info card --}}
+        <x-admin.card title="Customer">
+            @if ($sale->customer)
+                <div class="flex items-start gap-4">
+                    <div class="flex size-10 shrink-0 items-center justify-center rounded-full bg-zinc-900 text-sm font-semibold uppercase text-white">
+                        {{ substr($sale->customer->name, 0, 2) }}
+                    </div>
+                    <dl class="flex-1 grid grid-cols-1 gap-y-3 sm:grid-cols-2">
+                        <div>
+                            <dt class="text-xs font-medium uppercase tracking-wider text-zinc-500">Name</dt>
+                            <dd class="mt-1 text-sm font-semibold text-zinc-900">
+                                <a href="{{ route('customers.edit', $sale->customer) }}"
+                                   class="underline decoration-zinc-300 hover:decoration-zinc-600">
+                                    {{ $sale->customer->name }}
+                                </a>
+                            </dd>
+                        </div>
+                        <div>
+                            <dt class="text-xs font-medium uppercase tracking-wider text-zinc-500">Email</dt>
+                            <dd class="mt-1 text-sm text-zinc-700">
+                                @if ($sale->customer->email)
+                                    <a href="mailto:{{ $sale->customer->email }}"
+                                       class="underline decoration-zinc-300 hover:decoration-zinc-600">
+                                        {{ $sale->customer->email }}
+                                    </a>
+                                @else
+                                    <span class="text-zinc-400">—</span>
+                                @endif
+                            </dd>
+                        </div>
+                        <div>
+                            <dt class="text-xs font-medium uppercase tracking-wider text-zinc-500">Phone</dt>
+                            <dd class="mt-1 text-sm text-zinc-700">{{ $sale->customer->phone ?? '—' }}</dd>
+                        </div>
+                        <div>
+                            <dt class="text-xs font-medium uppercase tracking-wider text-zinc-500">Address</dt>
+                            <dd class="mt-1 text-sm text-zinc-700">{{ $sale->customer->address ?? '—' }}</dd>
+                        </div>
+                    </dl>
+                </div>
+            @else
+                <div class="flex flex-col items-center justify-center py-6 text-center">
+                    <div class="flex size-10 items-center justify-center rounded-full bg-zinc-100">
+                        <img src="{{ asset('assets/icons/users.svg') }}" class="size-5 text-zinc-400 injectable" alt="">
+                    </div>
+                    <p class="mt-3 text-sm font-medium text-zinc-600">Walk-in Customer</p>
+                    <p class="mt-1 text-xs text-zinc-400">No customer was linked to this sale.</p>
                 </div>
             @endif
-        </dl>
-    </x-admin.card>
+        </x-admin.card>
+
+    </div>
 
     {{-- Financial summary + line items --}}
     <div class="mt-6 grid grid-cols-1 gap-6 lg:grid-cols-3">
