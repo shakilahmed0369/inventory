@@ -18,14 +18,15 @@ This application is a Laravel application and its main Laravel ecosystems packag
 - laravel/sail (SAIL) - v1
 - pestphp/pest (PEST) - v4
 - phpunit/phpunit (PHPUNIT) - v12
-- tailwindcss (TAILWINDCSS) - v4
+- alpinejs (ALPINEJS) - v3
+- tailwindcss (TAILWINDCSS) - v3
 
 ## Skills Activation
 
 This project has domain-specific skills available. You MUST activate the relevant skill whenever you work in that domain—don't wait until you're stuck.
 
 - `pest-testing` — Tests applications using the Pest 4 PHP framework. Activates when writing tests, creating unit or feature tests, adding assertions, testing Livewire components, browser testing, debugging test failures, working with datasets or mocking; or when the user mentions test, spec, TDD, expects, assertion, coverage, or needs to verify functionality works.
-- `tailwindcss-development` — Styles applications using Tailwind CSS v4 utilities. Activates when adding styles, restyling components, working with gradients, spacing, layout, flex, grid, responsive design, dark mode, colors, typography, or borders; or when the user mentions CSS, styling, classes, Tailwind, restyle, hero section, cards, buttons, or any visual/UI changes.
+- `tailwindcss-development` — Styles applications using Tailwind CSS v3 utilities. Activates when adding styles, restyling components, working with gradients, spacing, layout, flex, grid, responsive design, dark mode, colors, typography, or borders; or when the user mentions CSS, styling, classes, Tailwind, restyle, hero section, cards, buttons, or any visual/UI changes.
 
 ## Conventions
 
@@ -136,6 +137,13 @@ protected function isAccessible(User $user, ?string $path = null): bool
 - The application is served by Laravel Herd and will be available at: `https?://[kebab-case-project-dir].test`. Use the `get-absolute-url` tool to generate valid URLs for the user.
 - You must not run any commands to make the site available via HTTP(S). It is always available through Laravel Herd.
 
+=== tests rules ===
+
+# Test Enforcement
+
+- Every change must be programmatically tested. Write a new test or update an existing test, then run the affected tests to make sure they pass.
+- Run the minimum number of tests needed to ensure code quality and speed. Use `php artisan test --compact` with a specific filename or filter.
+
 === laravel/core rules ===
 
 # Do Things the Laravel Way
@@ -241,3 +249,128 @@ protected function isAccessible(User $user, ?string $path = null): bool
 - IMPORTANT: Always use `search-docs` tool for version-specific Tailwind CSS documentation and updated code examples. Never rely on training data.
 - IMPORTANT: Activate `tailwindcss-development` every time you're working with a Tailwind CSS or styling-related task.
 </laravel-boost-guidelines>
+
+=== project rules ===
+
+# Admin Panel Conventions
+
+This application has a custom admin panel. All admin-facing views MUST follow the conventions below  check `resources/views/customers/` as the reference implementation before creating anything new.
+
+## Layout
+
+- Always use `<x-admin-layout>` as the page wrapper.
+- Always provide `<x-slot name="heading">` and `<x-slot name="breadcrumbs">` slots.
+
+```blade
+<x-admin-layout>
+    <x-slot name="heading">Page Title</x-slot>
+    <x-slot name="breadcrumbs">
+        <span>Home</span>
+        <span>/</span>
+        <span class="font-medium text-zinc-900">Page Title</span>
+    </x-slot>
+
+    {{-- page content --}}
+</x-admin-layout>
+```
+
+## Admin Components
+
+Always use the admin component library located at `resources/views/components/admin/`. Never roll your own buttons, inputs, labels, or cards  always prefer these:
+
+| Component | Tag | Purpose |
+|---|---|---|
+| Button (primary, black) | `<x-admin.button>` | Primary form submit / CTA |
+| Secondary button | `<x-admin.secondary-button>` | Cancel, back, secondary actions |
+| Danger button | `<x-admin.danger-button>` | Destructive actions (delete, etc.) |
+| Text input | `<x-admin.input>` | All text/email/tel/number inputs |
+| Label | `<x-admin.label>` | Field labels; pass `required` prop for required fields |
+| Input error | `<x-admin.input-error :messages="$errors->get('field')" />` | Validation errors below inputs |
+| Card | `<x-admin.card title="..." description="...">` | Form / content card wrapper |
+
+## Icons
+
+- All SVG icon files live in `public/assets/icons/`. Check this folder before adding a new icon.
+- When adding a new icon, place the `.svg` file in `public/assets/icons/`. The SVG paths must use `stroke="currentColor"` (or `fill="currentColor"` for solid icons) so color inheritance works.
+- Always render icons as `<img>` tags with the `injectable` class. SVGInject (already wired in `public/assets/admin.js`) will replace them with inline `<svg>` elements at runtime, enabling `currentColor` to inherit the parent element's text color.
+- Never use `invert`, `opacity-*` hacks, or inline `style="filter: ..."` for icon coloring. Use Tailwind `text-{color}` classes instead; they are inherited by the injected SVG via `currentColor`.
+- Do NOT use `opacity-*` or CSS filters to color or dim icons  use `text-{color}` utilities.
+
+### Icon color guide
+
+| Context | Class to add to the `<img>` |
+|---|---|
+| Icon on a dark / black background (`bg-zinc-900`) | Add `text-white` to the parent OR the `<img>`  inherited automatically |
+| Icon on a white/light background (muted) | `text-zinc-400` or `text-zinc-500` |
+| Red / danger icons (trash, warning, error) | `text-red-600` |
+| Green trend / success icons | `text-emerald-600` |
+| Icon inherits parent nav link color (active/inactive) | No text class needed  just `injectable` |
+
+### Icon `<img>` template
+
+```blade
+<img src="{{ asset('assets/icons/icon-name.svg') }}" class="size-4 injectable" alt="">
+```
+
+For explicitly colored icons:
+
+```blade
+<img src="{{ asset('assets/icons/trash.svg') }}" class="size-3.5 text-red-600 injectable" alt="">
+```
+
+## CRUD Structure
+
+Follow the Customers module as the reference pattern for all new CRUD resources:
+
+### Files to create
+
+| File | Notes |
+|---|---|
+| `app/Models/ModelName.php` | Eloquent model via `php artisan make:model ModelName -m` |
+| `database/migrations/_create_table.php` | Created alongside model |
+| `database/factories/ModelNameFactory.php` | Create with `php artisan make:model --factory` |
+| `app/Http/Controllers/ModelNameController.php` | Resource controller via `php artisan make:controller --resource` |
+| `app/Http/Requests/StoreModelNameRequest.php` | Form request for store |
+| `app/Http/Requests/UpdateModelNameRequest.php` | Form request for update |
+| `resources/views/model-names/index.blade.php` | Table list view |
+| `resources/views/model-names/create.blade.php` | Create form |
+| `resources/views/model-names/edit.blade.php` | Edit form |
+
+- Do NOT create a `show` view/route  this project uses index + edit only.
+- Register as a resource route with `->except(['show'])`.
+- Always use Form Request classes for validation  never validate inline in the controller.
+- Paginate index queries; pass the paginator to the view.
+
+### Index view conventions
+
+- Header row: title/count on the left, "New X" primary button (with `injectable` arrow-right icon) on the right.
+- Table inside a `rounded-lg border border-zinc-200 bg-white` card.
+- Actions column: Edit link (`<x-admin.secondary-button>`-styled anchor) + Delete form button (`<x-admin.danger-button>`-styled).
+- Empty state: centered icon (`text-zinc-300 injectable`) + message + create link.
+- Delete confirmation: JS modal (see `customers/index.blade.php` for the pattern).
+
+### Form view conventions (create & edit)
+
+- Wrap the form in `<x-admin.card title="..." description="...">`.
+- Use `<x-admin.label>`, `<x-admin.input>`, `<x-admin.input-error>` for every field.
+- Footer row: `<x-admin.button type="submit">` + `<x-admin.secondary-button>` cancel link.
+
+
+## Flash Notifications
+
+- This project uses **PHP Flasher** with the **Notyf** adapter for all user-facing flash notifications.
+- Always use the `notyf()` helper  never use `session()->flash()`, `->with('success', ...)`, or any Blade `@if(session(...))` flash blocks.
+- Call `notyf()` before the `return redirect()` statement.
+
+```php
+// Success
+notyf()->success('Customer created successfully.');
+return redirect()->route('customers.index');
+
+// Error
+notyf()->error('Something went wrong.');
+return redirect()->back();
+```
+
+- Use `notyf()->success()` for create, update, and delete confirmations.
+- Use `notyf()->error()` for failure cases.
