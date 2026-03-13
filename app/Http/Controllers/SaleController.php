@@ -30,7 +30,7 @@ class SaleController extends Controller
         $products = Product::query()
             ->where('current_stock', '>', 0)
             ->orderBy('name')
-            ->get(['id', 'name', 'sell_price', 'current_stock']);
+            ->get(['id', 'name', 'sell_price', 'current_stock', 'image']);
 
         return view('sales.create', compact('customers', 'products'));
     }

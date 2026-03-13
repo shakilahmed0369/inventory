@@ -42,25 +42,48 @@
                 @else
                     <div class="grid grid-cols-2 gap-3 xl:grid-cols-3" id="product-grid">
                         @foreach ($products as $product)
-                            <div class="product-card group relative cursor-pointer select-none rounded-lg border border-zinc-200 p-3.5 transition-all duration-150 hover:border-zinc-400 hover:shadow-sm active:scale-95"
+                            {{-- Outer wrapper is relative WITHOUT overflow-hidden so the badge can poke out --}}
+                            <div class="product-card group relative cursor-pointer select-none transition-all duration-150 active:scale-95"
                                  data-id="{{ $product->id }}"
                                  data-name="{{ $product->name }}"
                                  data-price="{{ $product->sell_price }}"
                                  data-stock="{{ $product->current_stock }}">
 
-                                {{-- In-cart qty badge --}}
-                                <span class="cart-badge absolute -right-1.5 -top-1.5 hidden min-w-[1.25rem] items-center justify-center rounded-full bg-zinc-900 px-1 py-0.5 text-[10px] font-bold text-white"></span>
+                                {{-- In-cart qty badge sits on the outer wrapper so it's never clipped --}}
+                                <span class="cart-badge absolute -right-1.5 -top-1.5 z-10 hidden min-w-[1.25rem] items-center justify-center rounded-full bg-zinc-900 px-1 py-0.5 text-[10px] font-bold text-white"></span>
 
-                                <p class="text-sm font-semibold text-zinc-900 leading-snug">{{ $product->name }}</p>
-                                <p class="mt-1 text-base font-bold text-zinc-900">৳ {{ number_format($product->sell_price, 2) }}</p>
-                                <div class="mt-2 flex items-center justify-between">
-                                    <span class="inline-flex items-center rounded-full px-2 py-0.5 text-[10px] font-medium
-                                                 {{ $product->current_stock <= 5 ? 'bg-amber-50 text-amber-700' : 'bg-emerald-50 text-emerald-700' }}">
-                                        Stock: {{ $product->current_stock }}
-                                    </span>
-                                    <span class="text-lg font-light text-zinc-300 transition-colors group-hover:text-zinc-500">+</span>
+                                {{-- Inner card has overflow-hidden for the image crop + border styling --}}
+                                <div class="overflow-hidden rounded-lg border border-zinc-200 hover:border-zinc-400 hover:shadow-sm transition-all duration-150">
+
+                                {{-- Product image --}}
+                                @if ($product->image)
+                                    <img src="{{ Storage::url($product->image) }}"
+                                         alt="{{ $product->name }}"
+                                         class="h-28 w-full object-cover">
+                                @else
+                                    <div class="flex h-28 w-full items-center justify-center bg-zinc-100">
+                                        <svg class="size-10 text-zinc-300" xmlns="http://www.w3.org/2000/svg" fill="none"
+                                             viewBox="0 0 24 24" stroke="currentColor" stroke-width="1">
+                                            <path stroke-linecap="round" stroke-linejoin="round"
+                                                  d="M2.25 15.75l5.159-5.159a2.25 2.25 0 0 1 3.182 0l5.159 5.159m-1.5-1.5 1.409-1.409a2.25 2.25 0 0 1 3.182 0l2.909 2.909M3.75 21h16.5a1.5 1.5 0 0 0 1.5-1.5V6a1.5 1.5 0 0 0-1.5-1.5H3.75A1.5 1.5 0 0 0 2.25 6v13.5A1.5 1.5 0 0 0 3.75 21Z"/>
+                                        </svg>
+                                    </div>
+                                @endif
+
+                                {{-- Card body --}}
+                                <div class="p-3">
+                                    <p class="text-xs font-semibold text-zinc-900 leading-snug line-clamp-2">{{ $product->name }}</p>
+                                    <p class="mt-1 text-sm font-bold text-zinc-900">৳ {{ number_format($product->sell_price, 2) }}</p>
+                                    <div class="mt-1.5 flex items-center justify-between">
+                                        <span class="inline-flex items-center rounded-full px-2 py-0.5 text-[10px] font-medium
+                                                     {{ $product->current_stock <= 5 ? 'bg-amber-50 text-amber-700' : 'bg-emerald-50 text-emerald-700' }}">
+                                            Stock: {{ $product->current_stock }}
+                                        </span>
+                                        <span class="text-base font-light text-zinc-300 transition-colors group-hover:text-zinc-500">+</span>
+                                    </div>
                                 </div>
-                            </div>
+                                </div>{{-- /inner card --}}
+                            </div>{{-- /outer wrapper --}}
                         @endforeach
                     </div>
                     <p id="no-search-results" class="hidden pt-10 text-center text-sm text-zinc-400">
@@ -121,7 +144,7 @@
             <div class="shrink-0 space-y-2.5 border-t border-zinc-200 px-5 py-4">
                 <div class="grid grid-cols-2 gap-3">
                     <div>
-                        <x-admin.label for="customer_id">Customer</x-admin.label>
+                        <x-admin.label for="customer_id" value="Customer" />
                         <select id="customer_id" name="customer_id"
                                 class="mt-1 block w-full rounded-md border border-zinc-200 bg-white px-3 py-1.5 text-sm text-zinc-900 focus:border-zinc-900 focus:outline-none focus:ring-1 focus:ring-zinc-900">
                             <option value="">— Walk-in —</option>
@@ -134,7 +157,7 @@
                         <x-admin.input-error :messages="$errors->get('customer_id')" />
                     </div>
                     <div>
-                        <x-admin.label for="sale_date" required>Date</x-admin.label>
+                        <x-admin.label for="sale_date" value="Date" required />
                         <input id="sale_date" name="sale_date" type="date"
                                value="{{ old('sale_date', date('Y-m-d')) }}"
                                class="mt-1 block w-full rounded-md border border-zinc-200 bg-white px-3 py-1.5 text-sm text-zinc-900 focus:border-zinc-900 focus:outline-none focus:ring-1 focus:ring-zinc-900"
@@ -143,7 +166,7 @@
                     </div>
                 </div>
                 <div>
-                    <x-admin.label for="notes">Notes</x-admin.label>
+                    <x-admin.label for="notes" value="Notes" />
                     <textarea id="notes" name="notes" rows="2"
                               class="mt-1 block w-full rounded-md border border-zinc-200 bg-white px-3 py-1.5 text-sm text-zinc-900 focus:border-zinc-900 focus:outline-none focus:ring-1 focus:ring-zinc-900"
                               placeholder="Optional remarks…">{{ old('notes') }}</textarea>
@@ -154,7 +177,7 @@
             <div class="shrink-0 border-t border-zinc-200 bg-zinc-50 px-5 py-4">
                 <div class="grid grid-cols-3 gap-3">
                     <div>
-                        <x-admin.label for="discount" required>Discount (৳)</x-admin.label>
+                        <x-admin.label for="discount" value="Discount (৳)" required />
                         <input id="discount" name="discount" type="number" step="0.01" min="0"
                                value="{{ old('discount', 0) }}"
                                class="mt-1 block w-full rounded-md border border-zinc-200 bg-white px-3 py-1.5 text-sm text-zinc-900 focus:border-zinc-900 focus:outline-none focus:ring-1 focus:ring-zinc-900"
@@ -162,15 +185,15 @@
                         <x-admin.input-error :messages="$errors->get('discount')" />
                     </div>
                     <div>
-                        <x-admin.label for="vat_rate" required>VAT (%)</x-admin.label>
+                        <x-admin.label for="vat_rate" value="VAT (%)" required />
                         <input id="vat_rate" name="vat_rate" type="number" step="0.01" min="0" max="100"
-                               value="{{ old('vat_rate', 5) }}"
+                               value="{{ old('vat_rate', 0) }}"
                                class="mt-1 block w-full rounded-md border border-zinc-200 bg-white px-3 py-1.5 text-sm text-zinc-900 focus:border-zinc-900 focus:outline-none focus:ring-1 focus:ring-zinc-900"
                                required />
                         <x-admin.input-error :messages="$errors->get('vat_rate')" />
                     </div>
                     <div>
-                        <x-admin.label for="paid_amount" required>Paid (৳)</x-admin.label>
+                        <x-admin.label for="paid_amount" value="Paid (৳)" required />
                         <input id="paid_amount" name="paid_amount" type="number" step="0.01" min="0"
                                value="{{ old('paid_amount', 0) }}"
                                class="mt-1 block w-full rounded-md border border-zinc-200 bg-white px-3 py-1.5 text-sm text-zinc-900 focus:border-zinc-900 focus:outline-none focus:ring-1 focus:ring-zinc-900"
