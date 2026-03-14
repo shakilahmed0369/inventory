@@ -108,8 +108,8 @@ database/
 ### 1. Clone the repository
 
 ```bash
-git clone <repository-url>
-cd inventory-manager
+git clone https://github.com/shakilahmed0369/inventory
+cd inventory
 ```
 
 ### 2. Install PHP dependencies
