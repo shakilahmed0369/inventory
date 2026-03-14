@@ -123,7 +123,7 @@
 
         <script src="{{ asset('assets/js/svg-inject.min.js') }}"></script>
         <!-- Custom admin JS -->
-        <script src="{{ asset('assets/admin.js') }}"></script>
+        <script src="{{ asset('assets/js/admin.js') }}"></script>
 
         @stack('scripts')
 
