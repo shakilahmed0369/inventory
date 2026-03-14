@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="csrf-token" content="{{ csrf_token() }}">
 
-        <title>{{ $title ?? config('app.name', 'Laravel') }} — Admin</title>
+        <title>{{ $title ?? config('app.name', 'Inventory') }} — Admin</title>
 
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
@@ -96,7 +96,7 @@
                                     <img src="{{ asset('assets/icons/profile.svg') }}" class="size-3.5 injectable" alt="">
                                     Profile
                                 </a>
-                               
+
                                 <div class="my-1 border-t border-zinc-100"></div>
                                 <form method="POST" action="{{ route('logout') }}">
                                     @csrf

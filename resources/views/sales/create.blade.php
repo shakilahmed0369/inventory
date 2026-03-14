@@ -8,10 +8,10 @@
         <span class="font-medium text-zinc-900">New Sale</span>
     </x-slot>
 
-    <div class="flex gap-4" style="height: calc(100vh - 7rem);">
+    <div class="flex flex-col gap-4 lg:flex-row lg:h-[calc(100vh-7rem)]">
 
         {{-- ── LEFT: Product catalogue ──────────────────────────────────── --}}
-        <div class="flex w-3/5 flex-col overflow-hidden rounded-lg border border-zinc-200 bg-white">
+        <div class="flex h-[50vh] flex-col overflow-hidden rounded-lg border border-zinc-200 bg-white lg:h-auto lg:w-3/5">
 
             {{-- Panel header + search --}}
             <div class="shrink-0 border-b border-zinc-100 px-5 py-3">
@@ -95,7 +95,7 @@
 
         {{-- ── RIGHT: Cart / POS ────────────────────────────────────────── --}}
         <form id="sale-form" method="POST" action="{{ route('sales.store') }}"
-              class="flex w-2/5 flex-col overflow-hidden rounded-lg border border-zinc-200 bg-white">
+              class="flex flex-col overflow-hidden rounded-lg border border-zinc-200 bg-white lg:w-2/5">
             @csrf
 
             {{-- Cart header --}}
@@ -111,7 +111,7 @@
             </div>
 
             {{-- Scrollable cart items --}}
-            <div class="flex-1 overflow-y-auto">
+            <div class="min-h-48 flex-1 overflow-y-auto lg:min-h-0">
                 {{-- Empty state --}}
                 <div id="cart-empty" class="flex h-full flex-col items-center justify-center p-8 text-center">
                     <div class="flex size-12 items-center justify-center rounded-full bg-zinc-100">
@@ -175,7 +175,7 @@
 
             {{-- Payment inputs + live totals --}}
             <div class="shrink-0 border-t border-zinc-200 bg-zinc-50 px-5 py-4">
-                <div class="grid grid-cols-3 gap-3">
+                <div class="grid grid-cols-1 gap-3 sm:grid-cols-3">
                     <div>
                         <x-admin.label for="discount" value="Discount (৳)" required />
                         <input id="discount" name="discount" type="number" step="0.01" min="0"
