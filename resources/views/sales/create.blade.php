@@ -40,10 +40,10 @@
                         <p>No products with available stock.</p>
                     </div>
                 @else
-                    <div class="grid grid-cols-2 gap-3 xl:grid-cols-3" id="product-grid">
+                    <div class="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5" id="product-grid">
                         @foreach ($products as $product)
                             {{-- Outer wrapper is relative WITHOUT overflow-hidden so the badge can poke out --}}
-                            <div class="product-card group relative cursor-pointer select-none transition-all duration-150 active:scale-95"
+                            <div class="product-card group relative cursor-pointer select-none rounded-lg transition-all duration-150 active:scale-95"
                                  data-id="{{ $product->id }}"
                                  data-name="{{ $product->name }}"
                                  data-price="{{ $product->sell_price }}"
@@ -59,9 +59,9 @@
                                 @if ($product->image)
                                     <img src="{{ Storage::url($product->image) }}"
                                          alt="{{ $product->name }}"
-                                         class="h-28 w-full object-cover">
+                                         class="aspect-square w-full object-cover">
                                 @else
-                                    <div class="flex h-28 w-full items-center justify-center bg-zinc-100">
+                                    <div class="flex aspect-square w-full items-center justify-center bg-zinc-100">
                                         <svg class="size-10 text-zinc-300" xmlns="http://www.w3.org/2000/svg" fill="none"
                                              viewBox="0 0 24 24" stroke="currentColor" stroke-width="1">
                                             <path stroke-linecap="round" stroke-linejoin="round"
@@ -380,7 +380,7 @@
                                         ' class="qty-dec flex size-5 items-center justify-center rounded bg-zinc-100 text-xs font-semibold text-zinc-700 hover:bg-zinc-200">−</button>' +
                                     '<input type="number" min="1" data-index="' + i + '"' +
                                         ' name="items[' + i + '][quantity]" value="' + item.qty + '"' +
-                                        ' class="item-qty w-9 rounded border border-zinc-200 px-1 py-1 text-center text-xs focus:border-zinc-500 focus:outline-none">' +
+                                        ' class="item-qty w-20 rounded border border-zinc-200 px-1 py-1 text-center text-xs focus:border-zinc-500 focus:outline-none">' +
                                     '<button type="button" data-index="' + i + '"' +
                                         ' class="qty-inc flex size-5 items-center justify-center rounded bg-zinc-100 text-xs font-semibold text-zinc-700 hover:bg-zinc-200">+</button>' +
                                 '</div>' +
