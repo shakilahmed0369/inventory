@@ -125,9 +125,12 @@ cp .env.example .env
 php artisan key:generate
 ```
 
-Open `.env` and set your database credentials:
+Open `.env` and set your app url and database credentials:
 
 ```env
+APP_NAME="Inventory"
+APP_URL=https://inventory.test
+
 DB_CONNECTION=mysql
 DB_HOST=127.0.0.1
 DB_PORT=3306
