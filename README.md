@@ -1,59 +1,233 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+﻿# Inventory Manager
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+A modern inventory and sales management system built with Laravel 12. Designed for small to medium retail businesses, it provides a full-featured admin panel covering product inventory, point-of-sale, customer management, financial reporting, and double-entry accounting journal.
 
-## About Laravel
+---
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Features
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+### Product Management
+- Full CRUD for products (SKU, name, description, image, pricing)
+- Purchase price vs. sell price tracking
+- Opening stock and live current stock levels
+- Image upload per product
+- Stock automatically decremented on every sale
+- Guard against deleting products with existing sale records
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+### Customer Management
+- Full CRUD for customers (name, email, phone, address)
+- Customer association on sales for receivables tracking
 
-## Learning Laravel
+### Point of Sale (Sales)
+- Responsive POS-style sale creation interface
+- Product grid with search/filter, paginated with images
+- Cart with quantity, unit price, and line subtotal
+- Discount (fixed amount), VAT rate, and calculated VAT amount
+- Paid amount entry with automatic due amount calculation
+- Stock availability validation before processing
+- Sale detail view with full line-item breakdown and payment status (Paid / Partial / Unpaid)
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework. You can also check out [Laravel Learn](https://laravel.com/learn), where you will be guided through building a modern Laravel application.
+### Reports
+- Date-range filterable sales report
+- Aggregate totals: gross, discount, VAT, net payable, paid, and due
+- Paginated sale-by-sale breakdown
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+### Double-Entry Accounting Journal
+- Journal entries auto-generated on every sale via `SaleJournalService`
+- Accounts: Cash/Receivable (debit), Sales Revenue (credit), VAT Payable (credit)
+- Filterable journal entry list with debit/credit totals
+- Entry detail view with full line breakdown and sale reference
 
-## Laravel Sponsors
+### Authentication & Profile
+- Laravel Breeze authentication (login, register, password reset, email verification)
+- Profile editing and account deletion
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+---
 
-### Premium Partners
+## Tech Stack
 
-- **[Vehikl](https://vehikl.com)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Redberry](https://redberry.international/laravel-development)**
-- **[Active Logic](https://activelogic.com)**
+| Layer | Technology |
+|---|---|
+| Backend | PHP 8.4, Laravel 12 |
+| Frontend | Blade, Tailwind CSS |
+| Database | MySQL |
+| Auth | Laravel Breeze |
+| Notifications | PHPFlasher + Notyf |
+| Testing | Pest v4, PHPUnit v12 |
+| Code Style | Laravel Pint |
+| Local Dev | Laravel Herd or Laravel Sail |
 
-## Contributing
+---
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+## Project Structure
 
-## Code of Conduct
+```
+app/
+ Http/
+    Controllers/        # DashboardController, ProductController, CustomerController,
+                            SaleController, ReportController, JournalEntryController
+    Requests/           # Form request validation classes
+ Models/                 # User, Product, Customer, Sale, SaleItem,
+                             Account, JournalEntry, JournalEntryLine
+ Services/
+    SaleJournalService.php   # Double-entry journal automation
+ View/Components/        # Blade components
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+resources/views/
+ components/admin/       # Reusable admin UI components (button, input, card, label...)
+ layouts/                # Admin layout + sidebar partial
+ dashboard/              # Dashboard index view
+ products/               # Product CRUD views
+ customers/              # Customer CRUD views
+ sales/                  # Sale list, create, show views
+ reports/                # Reports view
+ journal-entries/        # Journal entry list and detail views
 
-## Security Vulnerabilities
+database/
+ migrations/             # All table migrations
+ factories/              # Model factories for testing & seeding
+ seeders/                # DatabaseSeeder, AccountSeeder, ProductSeeder,
+                              CustomerSeeder, SaleSeeder
+```
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+---
+
+## Roadmap
+
+The following capabilities are planned for future development:
+
+### Near-term
+- **Purchase orders**  Record supplier purchases and automatically increment stock
+- **Supplier management**  Full CRUD for suppliers linked to purchase orders
+- **Payment collection**  Record partial payments against outstanding dues and reduce `due_amount`
+- **Invoice PDF export**  Generate printable/downloadable invoice PDFs for each sale
+
+### Medium-term
+- **Multi-user roles**  Admin, cashier, and viewer roles with policy-based access control
+- **Product categories & tags**  Hierarchical category tree for product classification and filtering
+- **Barcode scanning**  Barcode/QR lookup support on the POS screen
+- **Discount types**  Percentage-based discounts in addition to fixed-amount discounts
+- **Expense tracking**  Record operating expenses as journal entries for a complete P&L
+
+### Long-term
+- **Full chart of accounts**  Configurable account tree with balance sheet and income statement views
+- **Stock transfers & adjustments**  Manual stock adjustment with reason codes and audit trail
+- **Multi-warehouse/location**  Track inventory across multiple store locations
+- **REST API**  Versioned JSON API for mobile app or third-party integration
+- **Analytics dashboard**  Chart-based revenue trends, product performance, and customer lifetime value
+
+---
+
+## Setup Guide
+
+### Requirements
+
+- PHP 8.4 
+- Composer 2
+- Node.js 18+ and npm
+- MySQL 8 (or compatible MariaDB)
+- [Laravel Herd](https://herd.laravel.com) (recommended) **or** Docker for Sail
+
+---
+
+### 1. Clone the repository
+
+```bash
+git clone <repository-url> inventory-manager
+cd inventory-manager
+```
+
+### 2. Install PHP dependencies
+
+```bash
+composer install
+```
+
+### 3. Configure environment
+
+```bash
+cp .env.example .env
+php artisan key:generate
+```
+
+Open `.env` and set your database credentials:
+
+```env
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=inventory
+DB_USERNAME=root
+DB_PASSWORD=
+```
+
+### 4. Run database migrations
+
+```bash
+php artisan migrate
+```
+
+### 5. Seed demo data *(optional but recommended)*
+
+Seeds 20 men's fashion products with images, 25 customers, and 70 realistic sales:
+
+```bash
+php artisan db:seed
+```
+
+### 6. Link storage for product images
+
+```bash
+php artisan storage:link
+```
+
+### 7. Install frontend dependencies and build assets
+
+```bash
+npm install
+npm run build
+```
+
+> During active development use `npm run dev` (or `composer run dev` to start all services together) instead of `npm run build`.
+
+### 8. Start the development server
+
+**With Laravel Herd:** The site is served automatically at `https://inventory-manager.test` (matching the directory name you cloned into). No extra commands needed.
+
+**Without Herd:**
+
+```bash
+composer run dev
+```
+
+This starts the PHP development server, Vite asset watcher, and queue worker concurrently.
+
+---
+
+### Running Tests
+
+```bash
+php artisan test --compact
+```
+
+To run a specific test file or filter:
+
+```bash
+php artisan test --compact --filter=SaleTest
+```
+
+---
+
+### Code Style
+
+This project uses Laravel Pint. Run it before committing:
+
+```bash
+vendor/bin/pint --dirty
+```
+
+---
 
 ## License
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+This project is open-sourced under the [MIT license](https://opensource.org/licenses/MIT).
