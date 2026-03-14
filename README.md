@@ -20,7 +20,7 @@ A modern inventory and sales management system built with Laravel 12. Designed f
 
 ### Point of Sale (Sales)
 - Responsive POS-style sale creation interface
-- Product grid with search/filter, paginated with images
+- Product grid with basic static search/filter.
 - Cart with quantity, unit price, and line subtotal
 - Discount (fixed amount), VAT rate, and calculated VAT amount
 - Paid amount entry with automatic due amount calculation
@@ -92,31 +92,6 @@ database/
 
 ---
 
-## Roadmap
-
-The following capabilities are planned for future development:
-
-### Near-term
-- **Purchase orders**  Record supplier purchases and automatically increment stock
-- **Supplier management**  Full CRUD for suppliers linked to purchase orders
-- **Payment collection**  Record partial payments against outstanding dues and reduce `due_amount`
-- **Invoice PDF export**  Generate printable/downloadable invoice PDFs for each sale
-
-### Medium-term
-- **Multi-user roles**  Admin, cashier, and viewer roles with policy-based access control
-- **Product categories & tags**  Hierarchical category tree for product classification and filtering
-- **Barcode scanning**  Barcode/QR lookup support on the POS screen
-- **Discount types**  Percentage-based discounts in addition to fixed-amount discounts
-- **Expense tracking**  Record operating expenses as journal entries for a complete P&L
-
-### Long-term
-- **Full chart of accounts**  Configurable account tree with balance sheet and income statement views
-- **Stock transfers & adjustments**  Manual stock adjustment with reason codes and audit trail
-- **Multi-warehouse/location**  Track inventory across multiple store locations
-- **REST API**  Versioned JSON API for mobile app or third-party integration
-- **Analytics dashboard**  Chart-based revenue trends, product performance, and customer lifetime value
-
----
 
 ## Setup Guide
 
@@ -133,7 +108,7 @@ The following capabilities are planned for future development:
 ### 1. Clone the repository
 
 ```bash
-git clone <repository-url> inventory-manager
+git clone <repository-url>
 cd inventory-manager
 ```
 
@@ -197,10 +172,10 @@ npm run build
 **Without Herd:**
 
 ```bash
-composer run dev
+php artisan serve
 ```
 
-This starts the PHP development server, Vite asset watcher, and queue worker concurrently.
+This starts the PHP development server.
 
 ---
 
