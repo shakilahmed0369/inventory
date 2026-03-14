@@ -162,6 +162,29 @@ it('requires at least one line item', function () {
     ])->assertSessionHasErrors('items');
 });
 
+it('rejects a sale when quantity exceeds available stock', function () {
+    $product = Product::factory()->create([
+        'sell_price' => 100.00,
+        'current_stock' => 5,
+    ]);
+
+    $this->post(route('sales.store'), [
+        'sale_date' => '2024-01-15',
+        'discount' => 0,
+        'vat_rate' => 0,
+        'paid_amount' => 600,
+        'items' => [
+            ['product_id' => $product->id, 'quantity' => 6, 'unit_price' => 100],
+        ],
+    ])->assertRedirect();
+
+    // No sale should have been created
+    expect(Sale::count())->toBe(0);
+
+    // Stock must be untouched
+    expect($product->fresh()->current_stock)->toBe(5);
+});
+
 it('requires valid product ids in line items', function () {
     $this->post(route('sales.store'), [
         'sale_date' => '2024-01-15',

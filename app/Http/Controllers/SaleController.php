@@ -47,6 +47,27 @@ class SaleController extends Controller
     {
         $data = $request->validated();
 
+        // Validate that each item quantity does not exceed available stock
+        $stockMap = Product::query()
+            ->whereIn('id', collect($data['items'])->pluck('product_id'))
+            ->pluck('current_stock', 'id');
+
+        $stockErrors = [];
+        foreach ($data['items'] as $item) {
+            $available = $stockMap[$item['product_id']] ?? 0;
+            if ($item['quantity'] > $available) {
+                $stockErrors[] = "\"{$item['quantity']}\" requested but only {$available} in stock.";
+            }
+        }
+
+        if (! empty($stockErrors)) {
+            foreach ($stockErrors as $message) {
+                notyf()->error($message);
+            }
+
+            return redirect()->back()->withInput();
+        }
+
         DB::transaction(function () use ($data) {
             // Calculate financials server-side to prevent tampering
             $grossAmount = collect($data['items'])->sum(
@@ -82,7 +103,9 @@ class SaleController extends Controller
                     'subtotal' => $item['quantity'] * $item['unit_price'],
                 ]);
 
+                // whereRaw guard ensures unsigned column never goes below 0
                 Product::where('id', $item['product_id'])
+                    ->where('current_stock', '>=', $item['quantity'])
                     ->decrement('current_stock', $item['quantity']);
             }
 

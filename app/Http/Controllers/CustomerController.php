@@ -52,9 +52,12 @@ class CustomerController extends Controller
 
     public function destroy(Customer $customer): RedirectResponse
     {
-        $customer->delete();
-
-        notyf()->success('Customer deleted.');
+        try {
+            $customer->delete();
+            notyf()->success('Customer deleted.');
+        } catch (\Exception $e) {
+            notyf()->error('Customer could not be deleted.');
+        }
 
         return redirect()->route('customers.index');
     }

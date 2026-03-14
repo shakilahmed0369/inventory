@@ -14,6 +14,7 @@ class ProductController extends Controller
     public function index(): View
     {
         $products = Product::query()
+            ->withCount('saleItems')
             ->orderByDesc('created_at')
             ->paginate(15);
 
@@ -68,6 +69,12 @@ class ProductController extends Controller
 
     public function destroy(Product $product): RedirectResponse
     {
+        if ($product->saleItems()->exists()) {
+            notyf()->error('"'.$product->name.'" cannot be deleted because it has existing sale records.');
+
+            return redirect()->route('products.index');
+        }
+
         if ($product->image) {
             Storage::disk('public')->delete($product->image);
         }

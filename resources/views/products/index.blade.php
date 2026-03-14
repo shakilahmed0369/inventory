@@ -71,7 +71,8 @@
                                         Edit
                                     </a>
                                     <form method="POST" action="{{ route('products.destroy', $product) }}"
-                                          class="delete-form" data-name="{{ $product->name }}">
+                                          class="delete-form" data-name="{{ $product->name }}"
+                                          data-sale-items-count="{{ $product->sale_items_count }}">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit"
@@ -114,6 +115,9 @@
             <p class="mt-1 text-sm text-zinc-500">
                 <strong id="delete-product-name" class="text-zinc-700"></strong> will be permanently removed. This cannot be undone.
             </p>
+            <p id="delete-product-warning" class="mt-2 hidden rounded-md bg-amber-50 px-3 py-2 text-xs font-medium text-amber-700">
+                This product has <span id="delete-product-sale-count"></span> sale record(s). <strong>Deletion is not allowed</strong> while sale history exists.
+            </p>
             <div class="mt-5 flex justify-end gap-3">
                 <x-admin.secondary-button id="cancel-delete">Cancel</x-admin.secondary-button>
                 <x-admin.danger-button id="confirm-delete">Delete</x-admin.danger-button>
@@ -128,7 +132,16 @@
             $('.delete-form').on('submit', function (e) {
                 e.preventDefault();
                 pendingForm = this;
+                var count = parseInt($(this).data('sale-items-count')) || 0;
                 $('#delete-product-name').text($(this).data('name'));
+                if (count > 0) {
+                    $('#delete-product-warning').removeClass('hidden');
+                    $('#delete-product-sale-count').text(count);
+                    $('#confirm-delete').prop('disabled', true).addClass('opacity-50 cursor-not-allowed');
+                } else {
+                    $('#delete-product-warning').addClass('hidden');
+                    $('#confirm-delete').prop('disabled', false).removeClass('opacity-50 cursor-not-allowed');
+                }
                 $('#delete-confirm-modal').removeClass('hidden').addClass('flex');
             });
 
@@ -138,7 +151,7 @@
             });
 
             $('#confirm-delete').on('click', function () {
-                if (pendingForm) { $(pendingForm).off('submit').trigger('submit'); }
+                if (pendingForm && !$(this).prop('disabled')) { $(pendingForm).off('submit').trigger('submit'); }
             });
         });
     </script>
